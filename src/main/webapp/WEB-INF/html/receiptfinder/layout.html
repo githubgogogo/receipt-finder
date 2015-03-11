@@ -1,0 +1,75 @@
+<div class="alert alert-error" ng-show="error">{{errorMessage}}</div>
+
+<!-- <form class="form-inline" action="" id="fileUpload" method="POST"
+		enctype="multipart/form-data">
+		<div class="col-sm-12">
+			<div class="float-box">
+				<input id="fileupload" name="fileupload" type="file" />
+			</div>
+			<div class="float-box">
+				<button type="button" class="btn btn-danger btn-upload"
+					ng-click="uploadFile()">Upload
+					<span id="spinnerUpload" class="glyphicon glyphicon-refresh glyphicon-refresh-animate spinner"></span>
+				</button>
+			</div>
+		</div>
+	</form> -->
+
+<form class="form-horizontal">
+
+	<div class="control-group">
+		<label class="control-label" for="fileupload">Fridge storage</label>
+		<!-- <input id="fileupload" type="file" ng-model="itemFile"/>
+    	<button ng-click="uploadFile()">upload fridge items</button>
+		<span class="btn btn-primary btn-upload fileinput-button">
+	        <i class="glyphicon glyphicon-plus"></i>
+	        <span>Browse...</span>
+	        <input id="fileupload" type="file" name="itemsFile">
+	    </span> -->
+	    <button id="fileupload" ng-click="uploadFile()">Fake uploading fridge items</button>
+	</div>
+
+
+	<div class="control-group">
+		<label class="control-label" for="receipts">Receipts</label>
+
+		<div class="controls">
+			<textarea class="form-control" id="receipts" ng-model="receipts"
+				placeholder="receipts" ></textarea>
+		</div>
+	</div>
+	<div class="control-group">
+		<hr />
+		<div class="controls">
+			<button type="button" class="btn btn-primary"
+				ng-disabled="!receipts"
+				ng-click="findReceipt()">Find Receipt</button>
+		</div>
+	</div>
+</form>
+<hr />
+<div class="alert alert-info">
+The receipt is {{result.name}}
+</div>
+<h3>Fridge items</h3>
+<div class="alert alert-info" ng-show="items.length == 0">
+	No items found in your fridge
+</div>
+<table class="table table-bordered table-striped" ng-show="items.length > 0">
+	<thead>
+		<tr>
+			<th style="text-align: center; width: 25px;">Name</th>
+ 			<th style="text-align: center;">Amount</th>
+			<th style="text-align: center;">Unit</th>
+			<th style="text-align: center;">Use-By</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in items">
+			<td style="text-align: center;">{{item.name}}</td>
+			<td>{{item.amount}}</td>
+			<td>{{item.unit}}</td>
+			<td>{{item.useBy}}</td>
+		</tr>
+	</tbody>
+</table>

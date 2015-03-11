@@ -20,6 +20,11 @@ App.config(['$routeProvider', function ($routeProvider) {
         templateUrl: 'railwaystations/layout',
         controller: RailwayStationController
     });
+    
+    $routeProvider.when('/receiptfinder', {
+        templateUrl: 'receiptfinder/layout',
+        controller: ReceiptFinderController
+    });
 
-    $routeProvider.otherwise({redirectTo: '/cars'});
+    $routeProvider.otherwise({redirectTo: '/receiptfinder'});
 }]);
