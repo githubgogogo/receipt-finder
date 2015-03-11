@@ -1,1 +1,8 @@
-/target
+.project
+.classpath
+.settings/
+target/
+test-output/
+.xml/
+bin/
+
