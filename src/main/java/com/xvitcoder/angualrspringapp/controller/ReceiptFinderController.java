@@ -57,6 +57,29 @@ public class ReceiptFinderController {
     	return fridgeItemService.findReceipt(receipts);
     }
     
+    
+    @RequestMapping(value = "/uploadfridgeitems", method = RequestMethod.POST)
+    public @ResponseBody String updatefridgeitems(@RequestBody String csvContent) {
+    	
+    	
+    	fridgeItemService.deleteAll();
+    	
+    	String[] allTextLines = csvContent.split("\n");
+    	
+    	for (String line : allTextLines) {
+    		String[] data = line.split(",");
+    		String name = data[0];
+    		String amount = data[1];
+    		String unit = data[2];
+    		String useBy = data[3];
+    		
+    		FridgeItem fridgeItem = new FridgeItem(name, Integer.valueOf(amount), Unit.valueOf(unit), useBy);
+    		fridgeItemService.addFridgeItem(fridgeItem);
+    	}
+    	
+    	return "uploaded successsully.";
+    }
+    
     @RequestMapping(value = "/fakeupload", method = RequestMethod.POST)
     public @ResponseBody void fakeupload() {
     	fridgeItemService.fakeUpload();

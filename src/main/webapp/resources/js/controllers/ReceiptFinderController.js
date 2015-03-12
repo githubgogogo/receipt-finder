@@ -6,7 +6,7 @@
  */
 var ReceiptFinderController = function($scope, $http) {
 	
-	$scope.receipts = {};
+	$scope.receipts = "";
 	
 	$scope.fetchFridgeItemList = function() {
         $http.get('receiptfinder/fridgeitemlist.json').success(function(fridgeItemList){
@@ -27,6 +27,55 @@ var ReceiptFinderController = function($scope, $http) {
     	        });
     	
     };
+
+    $scope.uploadCsv = function() {
+        
+        //var csvFile = $("#csvfile")[0].files[0];
+        var csvFileInput = document.getElementById('csvfile');
+        
+        if(csvFileInput.value.length == 0){
+            alert("No file selected.");
+            return;
+        }
+
+        var file = csvFileInput.files[0];
+        
+        var textType = /text.*/;
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var csvContent = reader.result;
+            console.log(csvContent);
+            //processData(csvContent);
+            $http.post('receiptfinder/uploadfridgeitems', csvContent).success(function(result) {
+                $scope.setError(result);
+            }).error(function() {
+                $scope.setError('error!');
+            });
+        };
+
+        reader.readAsText(file);
+    };
+
+//    function processData(allText) {
+//        var allTextLines = allText.split(/\r\n|\n/);
+//        var lines = [];
+//        
+//        var fridgeItems = [];
+//        
+//
+//        for (var i=0; i<allTextLines.length; i++) {
+//            var data = allTextLines[i].split(',');
+//                var tarr = [];
+//                fridgeItems[i].name = data[0];
+//                fridgeItems[i].amount = data[1];
+//                fridgeItems[i].unit = data[2];
+//                fridgeItems[i].useby = data[3];
+////                for (var j=0; j<data.length; j++) {
+////                    console.log(data[j]);
+////                }
+//                console.log(fridgeItems[i]);
+//        }
+//    }
     
     $scope.uploadFile = function() {
     	
